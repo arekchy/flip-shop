@@ -1,15 +1,20 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { ProductDto } from './interfaces/product.dto';
 
 @Injectable()
 export class ProductsService {
-  private readonly products: ProductDto[] = [];
 
-  findAll() {
-    return [];
+  constructor(@Inject('PRODUCTS') private readonly products: ProductDto[]) {
   }
 
-  findByIds() {
-    return;
+  async findAll() {
+    return Promise.resolve(this.products);
+  }
+
+  findByIds(ids: string[]) {
+    return this.products
+      .filter(
+        product => ids.includes(product.id),
+      );
   }
 }

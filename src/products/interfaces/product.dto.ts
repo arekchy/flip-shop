@@ -4,6 +4,12 @@ export class ProductDto {
   price: ProductPriceDto;
   quantity: number;
   description?: string;
+
+  constructor(input: Pick<ProductDto, keyof ProductDto>) {
+    Object.assign(this, input);
+    Object.freeze(this.price);
+    Object.freeze(this);
+  }
 }
 
 export interface ProductPriceDto {
