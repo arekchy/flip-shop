@@ -30,18 +30,22 @@ export class ShoppingCartService {
 
     const shoppingCart = this.assertShoppingCart(id);
     const product = this.assertProduct(shoppingCartUpdate.productId);
+    let updatedProductsList: ShoppingCartProductListItem[];
 
     switch (shoppingCartUpdate.action) {
       case ShoppingCartAction.ADD:
-        this.addProductsToList(shoppingCart.productsList, product, shoppingCartUpdate.quantity);
+        updatedProductsList = this.addProductsToList(shoppingCart.productsList, product, shoppingCartUpdate.quantity);
         break;
       case ShoppingCartAction.REMOVE:
-        this.removeProductsFromList(shoppingCart.productsList, shoppingCartUpdate.productId, shoppingCartUpdate.quantity);
+        updatedProductsList = this.removeProductsFromList(shoppingCart.productsList, shoppingCartUpdate.productId, shoppingCartUpdate.quantity);
         break;
-
     }
 
-    return this.productsService.findById(id);
+    if (updatedProductsList) {
+      this.updateCartList(shoppingCart, updatedProductsList);
+    }
+
+    return this.carts.get(id);
   }
 
   checkout(
@@ -49,6 +53,13 @@ export class ShoppingCartService {
     currency: string,
   ) {
     return;
+  }
+
+  private updateCartList(cart: ShoppingCartDto, productsList: ShoppingCartProductListItem[]) {
+    this.carts.set(cart.id, {
+      ...cart,
+      productsList,
+    });
   }
 
   private assertShoppingCart(id: string): ShoppingCartDto {
@@ -67,19 +78,24 @@ export class ShoppingCartService {
     return product;
   }
 
-  private addProductsToList(productsList: ShoppingCartProductListItem[], product: ProductDto, quantity: number) {
-    const updatedProductsList = productsList
-      .map(productListItem => {
-        if (productListItem.productId === product.id) {
-
-          if (product.quantity < (quantity + productListItem.quantity)) {
-            throw new UnprocessableEntityException('Insufficient product quantity in warehouse');
-          }
-
-          productListItem.quantity = quantity + productListItem.quantity;
-        }
-        return productListItem;
+  private addProductsToList(productsList: ShoppingCartProductListItem[], product: ProductDto, quantityToAdd: number) {
+    const updatedProductsList = [...productsList];
+    const productIndex = updatedProductsList.findIndex(productListItem => productListItem.productId === product.id);
+    let combinedQuantity: number;
+    if (productIndex !== -1) {
+      combinedQuantity = updatedProductsList[productIndex].quantity + quantityToAdd;
+      updatedProductsList[productIndex].quantity = combinedQuantity;
+    } else {
+      combinedQuantity = quantityToAdd;
+      updatedProductsList.push({
+        productId: product.id,
+        quantity: combinedQuantity,
       });
+    }
+
+    if (product.quantity < combinedQuantity) {
+      throw new UnprocessableEntityException('Insufficient product quantity in warehouse');
+    }
 
     return updatedProductsList;
   }
