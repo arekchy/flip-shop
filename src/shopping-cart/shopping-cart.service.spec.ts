@@ -9,9 +9,12 @@ import { CurrenciesService } from './currencies.service';
 
 describe('ShoppingCartService', () => {
   let service: ShoppingCartService;
-  let productsService: ProductsService;
+  const productsService = {
+    findByIds: (): any[] => { return; },
+    findById: (): any => { return; },
+  };
   const currenciesService = {
-    convert: () => { return; },
+    convert: (): any => { return; },
   };
 
   const products = [
@@ -38,13 +41,13 @@ describe('ShoppingCartService', () => {
   ];
 
   beforeEach(async () => {
+    jest.restoreAllMocks();
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         ShoppingCartService,
-        ProductsService,
         {
-          provide: 'PRODUCTS',
-          useValue: products,
+          provide: ProductsService,
+          useValue: productsService,
         },
         {
           provide: CurrenciesService,
@@ -54,7 +57,6 @@ describe('ShoppingCartService', () => {
     }).compile();
 
     service = module.get<ShoppingCartService>(ShoppingCartService);
-    productsService = module.get<ProductsService>(ProductsService);
   });
 
   it('should be defined', () => {
@@ -86,8 +88,10 @@ describe('ShoppingCartService', () => {
 
     describe('adding products', () => {
       it('should add one product to cart', () => {
-        const cartId = service.create();
         const product1 = products[0];
+        jest.spyOn(productsService, 'findById').mockReturnValueOnce(product1);
+
+        const cartId = service.create();
 
         const result = service.update(cartId, {
           quantity: 1,
@@ -106,9 +110,14 @@ describe('ShoppingCartService', () => {
       });
 
       it('should add 2 products to cart', () => {
-        const cartId = service.create();
         const product1 = products[0];
         const product2 = products[1];
+        jest
+          .spyOn(productsService, 'findById')
+          .mockReturnValueOnce(product1)
+          .mockReturnValueOnce(product2);
+
+        const cartId = service.create();
 
         const update1Input = {
           quantity: 1,
@@ -157,8 +166,12 @@ describe('ShoppingCartService', () => {
       });
 
       it('When try to add more products than in warehouse, should throw UnprocessableEntityException', () => {
-        const cartId = service.create();
         const product1 = products[0];
+        jest
+          .spyOn(productsService, 'findById')
+          .mockReturnValueOnce(product1);
+
+        const cartId = service.create();
 
         expect(() => {
           service.update(cartId, {
@@ -190,8 +203,12 @@ describe('ShoppingCartService', () => {
       });
 
       it('When try to decrease amount of products, should return cart with decreased number of selected products', () => {
-        const cartId = service.create();
         const product1 = products[0];
+        jest
+          .spyOn(productsService, 'findById')
+          .mockReturnValue(product1);
+
+        const cartId = service.create();
 
         const update1Input = {
           quantity: 3,
@@ -220,8 +237,12 @@ describe('ShoppingCartService', () => {
       });
 
       it('When try to decrease amount of selected product to 0, should return cart without this product', () => {
-        const cartId = service.create();
         const product1 = products[0];
+        jest
+          .spyOn(productsService, 'findById')
+          .mockReturnValue(product1);
+
+        const cartId = service.create();
 
         const update1Input = {
           quantity: 3,
@@ -245,8 +266,12 @@ describe('ShoppingCartService', () => {
       });
 
       it('When try to decrease amount of selected product below 0, should return cart without this product', () => {
-        const cartId = service.create();
         const product1 = products[0];
+        jest
+          .spyOn(productsService, 'findById')
+          .mockReturnValue(product1);
+
+        const cartId = service.create();
 
         const update1Input = {
           quantity: 3,
