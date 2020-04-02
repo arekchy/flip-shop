@@ -5,10 +5,15 @@ import { ProductDto } from '../products/interfaces/product.dto';
 import { ShoppingCartAction } from './interfaces/shopping-cart.action';
 import { ShoppingCartDto } from './interfaces/shopping-cart.dto';
 import { NotFoundException, UnprocessableEntityException } from '@nestjs/common';
+import { CurrenciesService } from './currencies.service';
 
 describe('ShoppingCartService', () => {
   let service: ShoppingCartService;
   let productsService: ProductsService;
+  const currenciesService = {
+    convert: () => { return; },
+  };
+
   const products = [
     new ProductDto({
       id: 'p1',
@@ -40,6 +45,10 @@ describe('ShoppingCartService', () => {
         {
           provide: 'PRODUCTS',
           useValue: products,
+        },
+        {
+          provide: CurrenciesService,
+          useValue: currenciesService,
         },
       ],
     }).compile();

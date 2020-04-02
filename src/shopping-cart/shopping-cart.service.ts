@@ -5,13 +5,23 @@ import { randomStringGenerator } from '@nestjs/common/utils/random-string-genera
 import { ProductsService } from '../products/products.service';
 import { ShoppingCartUpdateDto } from './interfaces/shopping-cart-update.dto';
 import { ProductDto } from '../products/interfaces/product.dto';
+import {
+  DetailedProductListItem,
+  OrderCheckoutDto,
+  ProductPriceWithTotal,
+  TotalPrice,
+} from './interfaces/order-checkout.dto';
+import { CurrenciesService } from './currencies.service';
 
 @Injectable()
 export class ShoppingCartService {
 
   private readonly carts = new Map<string, ShoppingCartDto>();
 
-  constructor(private readonly productsService: ProductsService) {
+  constructor(
+    private readonly productsService: ProductsService,
+    private readonly currenciesService: CurrenciesService,
+  ) {
   }
 
   create(): string {
@@ -48,12 +58,65 @@ export class ShoppingCartService {
     return this.carts.get(id);
   }
 
-  checkout(
+  async checkout(
     id: string,
-    currency: string,
-  ) {
+    requestedCurrency = 'EUR',
+  ): Promise<OrderCheckoutDto> {
+    const shoppingCart = this.assertShoppingCart(id);
+    const insufficientQuantityProducts = [];
 
-    return;
+    const detailedProductsList = await Promise.all(shoppingCart.productsList
+      .map(async (productListItem) => {
+        const product = this.assertProduct(productListItem.productId);
+
+        if (product.quantity < productListItem.quantity) {
+          insufficientQuantityProducts.push(product.name);
+        }
+
+        return this.buildDetailedProductItem(product, productListItem.quantity, requestedCurrency);
+      }));
+
+    if (insufficientQuantityProducts.length) {
+      throw new UnprocessableEntityException(`Insufficient products quantity in warehouse: ${insufficientQuantityProducts.join()}`);
+    }
+
+    const totalPrice: TotalPrice = {
+      value: this.calculateTotalRequestedPrice(detailedProductsList),
+      currency: requestedCurrency,
+    };
+
+    return {
+      shoppingCartId: id,
+      detailedProductsList,
+      totalPrice,
+    };
+  }
+
+  private async buildDetailedProductItem(product: ProductDto, quantity: number, requestedCurrency: string): Promise<DetailedProductListItem> {
+    let requestedCurrencyPrice: ProductPriceWithTotal;
+    const originalPrice: ProductPriceWithTotal = {
+      ...product.price,
+      total: quantity * product.price.value,
+    };
+
+    if (requestedCurrency !== product.price.currency) {
+      const singleItemPrice = await this.currenciesService.convert(product.price.currency, requestedCurrency, product.price.value);
+      requestedCurrencyPrice = {
+        currency: requestedCurrency,
+        value: singleItemPrice,
+        total: quantity * singleItemPrice,
+      };
+    } else {
+      requestedCurrencyPrice = { ...originalPrice };
+    }
+
+    return {
+      name: product.name,
+      quantity,
+      description: product.description,
+      originalPrice,
+      requestedCurrencyPrice,
+    };
   }
 
   private updateCartList(cart: ShoppingCartDto, productsList: ShoppingCartProductListItem[]) {
@@ -102,7 +165,7 @@ export class ShoppingCartService {
   }
 
   private removeProductsFromList(productsList: ShoppingCartProductListItem[], productId: string, quantity: number) {
-    const updatedProductsList = productsList
+    return productsList
       .reduce((newList: ShoppingCartProductListItem[], productListItem: ShoppingCartProductListItem) => {
         if (productListItem.productId === productId) {
           productListItem.quantity = productListItem.quantity > quantity ? productListItem.quantity - quantity : 0;
@@ -112,8 +175,11 @@ export class ShoppingCartService {
         }
         return newList;
       }, []);
-
-    return updatedProductsList;
   }
 
+  private calculateTotalRequestedPrice(detailedProductsList: DetailedProductListItem[]): number {
+    return detailedProductsList.reduce((sum, item) => {
+      return sum + item.requestedCurrencyPrice.total;
+    }, 0);
+  }
 }

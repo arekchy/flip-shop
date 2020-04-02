@@ -5,16 +5,24 @@ import { ProductsService } from '../products/products.service';
 
 describe('ShoppingCart Controller', () => {
   let controller: ShoppingCartController;
+  const productsService = {
+
+  };
+  const shoppingCartService = {
+
+  };
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [ShoppingCartController],
       providers: [
-        ShoppingCartService,
-        ProductsService,
         {
-          provide: 'PRODUCTS',
-          useValue: [],
+          provide: ShoppingCartService,
+          useValue: shoppingCartService,
+        },
+        {
+          provide: ProductsService,
+          useValue: productsService,
         },
       ]
     }).compile();
