@@ -80,5 +80,14 @@ describe('ProductsService', () => {
     });
 
   });
-})
-;
+
+  describe('findById', () => {
+    it('When method called with id, should return selected product', async () => {
+
+      const product = products[1];
+
+      expect(await service.findById(product.id)).toEqual(product);
+    });
+  });
+
+});

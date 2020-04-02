@@ -1,6 +1,6 @@
-import { Body, Controller, Get, Param, Patch, Post, Query } from '@nestjs/common';
+import { Body, Controller, Get, Param, ParseIntPipe, Patch, Post, Query, UsePipes } from '@nestjs/common';
 import { ShoppingCartService } from './shopping-cart.service';
-import { ShoppingCartAction } from './interfaces/shopping-cart.action';
+import { ShoppingCartUpdateDto } from './interfaces/shopping-cart-update.dto';
 
 @Controller('shopping-cart')
 export class ShoppingCartController {
@@ -16,11 +16,9 @@ export class ShoppingCartController {
   @Patch(':id')
   update(
     @Param('id') id: string,
-    @Body('action') action: ShoppingCartAction,
-    @Body('productId') productId: string,
-    @Body('quantity') quantity: number,
+    @Body() shoppingCartUpdate: ShoppingCartUpdateDto,
   ) {
-    return this.shoppingCartService.update(id, action, productId, quantity);
+    return this.shoppingCartService.update(id, shoppingCartUpdate);
   }
 
   @Get(':id')

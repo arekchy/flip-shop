@@ -17,4 +17,8 @@ export class ProductsService {
         product => ids.includes(product.id),
       );
   }
+
+  findById(id: string) {
+    return this.products.find(product => product.id === id);
+  }
 }
