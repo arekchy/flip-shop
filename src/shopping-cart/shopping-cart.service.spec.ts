@@ -109,6 +109,34 @@ describe('ShoppingCartService', () => {
         expect(result).toEqual(expectedResult);
       });
 
+      it('should add the same product to cart twice', () => {
+        const product1 = products[0];
+        jest.spyOn(productsService, 'findById').mockReturnValue(product1);
+
+        const cartId = service.create();
+
+        service.update(cartId, {
+          quantity: 1,
+          productId: product1.id,
+          action: ShoppingCartAction.ADD,
+        });
+
+        const result = service.update(cartId, {
+          quantity: 1,
+          productId: product1.id,
+          action: ShoppingCartAction.ADD,
+        });
+
+        const expectedResult = new ShoppingCartDto();
+        expectedResult.id = cartId;
+        expectedResult.productsList = [{
+          productId: product1.id,
+          quantity: 2,
+        }];
+
+        expect(result).toEqual(expectedResult);
+      });
+
       it('should add 2 products to cart', () => {
         const product1 = products[0];
         const product2 = products[1];
@@ -296,7 +324,7 @@ describe('ShoppingCartService', () => {
 
     });
 
-    describe.only('checkout', () => {
+    describe('checkout', () => {
       it('should return list of products with calculated price in selected currency (basic currency, without exchange)', async () => {
         const product1 = products[0];
         jest
