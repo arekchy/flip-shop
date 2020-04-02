@@ -1,0 +1,1412 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>flip-shop documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	      <link rel="stylesheet" href="../styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">flip-shop documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content injectable">
+                   <div class="content-data">
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li>Injectables</li>
+  <li>ShoppingCartService</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>src/shopping-cart/shopping-cart.service.ts</code>
+        </p>
+
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>Used for manage shopping carts</p>
+
+            </p>
+
+
+
+            <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#carts">carts</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#addProductsToList">addProductsToList</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#assertProduct">assertProduct</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#assertShoppingCart">assertShoppingCart</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#buildDetailedProductItem">buildDetailedProductItem</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#calculateTotalRequestedPrice">calculateTotalRequestedPrice</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#checkout">checkout</a>
+                            </li>
+                            <li>
+                                <a href="#create">create</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#removeProductsFromList">removeProductsFromList</a>
+                            </li>
+                            <li>
+                                <a href="#update">update</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#updateCartList">updateCartList</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+            <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(productsService: <a href="../injectables/ProductsService.html">ProductsService</a>, currenciesService: <a href="../injectables/CurrenciesService.html">CurrenciesService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">src/shopping-cart/shopping-cart.service.ts:26</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Constructor</p>
+</div>
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>productsService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/ProductsService.html" target="_self" >ProductsService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>currenciesService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/CurrenciesService.html" target="_self" >CurrenciesService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+            <section>
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="addProductsToList"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Private</span>
+                            addProductsToList
+                        </b>
+                        <a href="#addProductsToList"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>addProductsToList(productsList: <a href="../interfaces/ShoppingCartProductListItem.html">ShoppingCartProductListItem[]</a>, product: <a href="../classes/ProductDto.html">ProductDto</a>, quantityToAdd: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="204"
+                            class="link-to-prism">src/shopping-cart/shopping-cart.service.ts:204</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Add products to shopping cart list</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>productsList</td>
+                                    <td>
+                                                <code><a href="../interfaces/ShoppingCartProductListItem.html" target="_self" >ShoppingCartProductListItem[]</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>product</td>
+                                    <td>
+                                                <code><a href="../classes/ProductDto.html" target="_self" >ProductDto</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>quantityToAdd</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>{}</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="assertProduct"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Private</span>
+                            assertProduct
+                        </b>
+                        <a href="#assertProduct"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>assertProduct(productId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="189"
+                            class="link-to-prism">src/shopping-cart/shopping-cart.service.ts:189</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Assert product</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>productId</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../classes/ProductDto.html" target="_self" >ProductDto</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="assertShoppingCart"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Private</span>
+                            assertShoppingCart
+                        </b>
+                        <a href="#assertShoppingCart"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>assertShoppingCart(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="176"
+                            class="link-to-prism">src/shopping-cart/shopping-cart.service.ts:176</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Assert shopping car</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>id</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../classes/ShoppingCartDto.html" target="_self" >ShoppingCartDto</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="buildDetailedProductItem"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Private</span>
+                            <span class="modifier">Async</span>
+                            buildDetailedProductItem
+                        </b>
+                        <a href="#buildDetailedProductItem"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>buildDetailedProductItem(product: <a href="../classes/ProductDto.html">ProductDto</a>, quantity: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, requestedCurrency: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="132"
+                            class="link-to-prism">src/shopping-cart/shopping-cart.service.ts:132</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Create detailed product info for order checkout</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>product</td>
+                                    <td>
+                                                <code><a href="../classes/ProductDto.html" target="_self" >ProductDto</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>quantity</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>requestedCurrency</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../interfaces/DetailedProductListItem.html" target="_self" >Promise&lt;DetailedProductListItem&gt;</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="calculateTotalRequestedPrice"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Private</span>
+                            calculateTotalRequestedPrice
+                        </b>
+                        <a href="#calculateTotalRequestedPrice"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>calculateTotalRequestedPrice(detailedProductsList: <a href="../interfaces/DetailedProductListItem.html">DetailedProductListItem[]</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="251"
+                            class="link-to-prism">src/shopping-cart/shopping-cart.service.ts:251</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Calculate total products price</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>detailedProductsList</td>
+                                    <td>
+                                                <code><a href="../interfaces/DetailedProductListItem.html" target="_self" >DetailedProductListItem[]</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="checkout"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Async</span>
+                            checkout
+                        </b>
+                        <a href="#checkout"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>checkout(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, requestedCurrency: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="91"
+                            class="link-to-prism">src/shopping-cart/shopping-cart.service.ts:91</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Get summary of shopping cart</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                    <td>Default value</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>id</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+                                    <td>
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td>requestedCurrency</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+                                    <td>
+                                        <code>&#x27;EUR&#x27;</code>
+                                    </td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../interfaces/OrderCheckoutDto.html" target="_self" >Promise&lt;OrderCheckoutDto&gt;</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="create"></a>
+                    <span class="name">
+                        <b>
+                            create
+                        </b>
+                        <a href="#create"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>create()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="44"
+                            class="link-to-prism">src/shopping-cart/shopping-cart.service.ts:44</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Create shopping cart</p>
+</div>
+
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="removeProductsFromList"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Private</span>
+                            removeProductsFromList
+                        </b>
+                        <a href="#removeProductsFromList"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>removeProductsFromList(productsList: <a href="../interfaces/ShoppingCartProductListItem.html">ShoppingCartProductListItem[]</a>, productId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, quantity: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="233"
+                            class="link-to-prism">src/shopping-cart/shopping-cart.service.ts:233</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Remove products from shopping cart list</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>productsList</td>
+                                    <td>
+                                                <code><a href="../interfaces/ShoppingCartProductListItem.html" target="_self" >ShoppingCartProductListItem[]</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>productId</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>quantity</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="update"></a>
+                    <span class="name">
+                        <b>
+                            update
+                        </b>
+                        <a href="#update"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>update(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, shoppingCartUpdate: <a href="../classes/ShoppingCartUpdateDto.html">ShoppingCartUpdateDto</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="59"
+                            class="link-to-prism">src/shopping-cart/shopping-cart.service.ts:59</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Update shopping cart</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>id</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>shoppingCartUpdate</td>
+                                    <td>
+                                                <code><a href="../classes/ShoppingCartUpdateDto.html" target="_self" >ShoppingCartUpdateDto</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="updateCartList"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Private</span>
+                            updateCartList
+                        </b>
+                        <a href="#updateCartList"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>updateCartList(cart: <a href="../classes/ShoppingCartDto.html">ShoppingCartDto</a>, productsList: <a href="../interfaces/ShoppingCartProductListItem.html">ShoppingCartProductListItem[]</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="164"
+                            class="link-to-prism">src/shopping-cart/shopping-cart.service.ts:164</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Update shopping cart products list</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>cart</td>
+                                    <td>
+                                                <code><a href="../classes/ShoppingCartDto.html" target="_self" >ShoppingCartDto</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>productsList</td>
+                                    <td>
+                                                <code><a href="../interfaces/ShoppingCartProductListItem.html" target="_self" >ShoppingCartProductListItem[]</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+            <section>
+    
+        <h3 id="inputs">
+            Properties
+        </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="carts"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                                <span class="modifier">Readonly</span>
+                            carts</b>
+                            <a href="#carts"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>new Map&lt;string, ShoppingCartDto&gt;()</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">src/shopping-cart/shopping-cart.service.ts:26</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>Storage for shopping carts</p>
+</div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+</section>
+
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable, NotFoundException, UnprocessableEntityException } from &#x27;@nestjs/common&#x27;;
+import { ShoppingCartDto, ShoppingCartProductListItem } from &#x27;./interfaces/shopping-cart.dto&#x27;;
+import { ShoppingCartAction } from &#x27;./interfaces/shopping-cart.action&#x27;;
+import { randomStringGenerator } from &#x27;@nestjs/common/utils/random-string-generator.util&#x27;;
+import { ProductsService } from &#x27;../products/products.service&#x27;;
+import { ShoppingCartUpdateDto } from &#x27;./interfaces/shopping-cart-update.dto&#x27;;
+import { ProductDto } from &#x27;../products/interfaces/product.dto&#x27;;
+import {
+  DetailedProductListItem,
+  OrderCheckoutDto,
+  ProductPriceWithTotal,
+  TotalPrice,
+} from &#x27;./interfaces/order-checkout.dto&#x27;;
+import { CurrenciesService } from &#x27;./currencies.service&#x27;;
+
+/**
+ * Used for manage shopping carts
+ */
+@Injectable()
+export class ShoppingCartService {
+
+  /**
+   * Storage for shopping carts
+   * @type {Map&lt;string, ShoppingCartDto&gt;}
+   */
+  private readonly carts &#x3D; new Map&lt;string, ShoppingCartDto&gt;();
+
+  /**
+   * Constructor
+   * @param productsService
+   * @param currenciesService
+   */
+  constructor(
+    private readonly productsService: ProductsService,
+    private readonly currenciesService: CurrenciesService,
+  ) {
+  }
+
+
+  /**
+   * Create shopping cart
+   * @returns {string}
+   */
+  create(): string {
+    const newShoppingCart &#x3D; new ShoppingCartDto();
+    newShoppingCart.id &#x3D; randomStringGenerator();
+    newShoppingCart.productsList &#x3D; [];
+
+    this.carts.set(newShoppingCart.id, newShoppingCart);
+    return newShoppingCart.id;
+  }
+
+  /**
+   * Update shopping cart
+   * @param {string} id
+   * @param {ShoppingCartUpdateDto} shoppingCartUpdate
+   * @returns {ShoppingCartDto}
+   */
+  update(
+    id: string,
+    shoppingCartUpdate: ShoppingCartUpdateDto,
+  ) {
+
+    const shoppingCart &#x3D; this.assertShoppingCart(id);
+    const product &#x3D; this.assertProduct(shoppingCartUpdate.productId);
+    let updatedProductsList: ShoppingCartProductListItem[];
+
+    switch (shoppingCartUpdate.action) {
+      case ShoppingCartAction.ADD:
+        updatedProductsList &#x3D; this.addProductsToList(shoppingCart.productsList, product, shoppingCartUpdate.quantity);
+        break;
+      case ShoppingCartAction.REMOVE:
+        updatedProductsList &#x3D; this.removeProductsFromList(shoppingCart.productsList, shoppingCartUpdate.productId, shoppingCartUpdate.quantity);
+        break;
+    }
+
+    if (updatedProductsList) {
+      this.updateCartList(shoppingCart, updatedProductsList);
+    }
+
+    return this.carts.get(id);
+  }
+
+
+  /**
+   * Get summary of shopping cart
+   * @param id
+   * @param requestedCurrency
+   * @returns {Promise&lt;{detailedProductsList: DetailedProductListItem[]; totalPrice: TotalPrice; shoppingCartId: string}&gt;}
+   */
+  async checkout(
+    id: string,
+    requestedCurrency &#x3D; &#x27;EUR&#x27;,
+  ): Promise&lt;OrderCheckoutDto&gt; {
+    const shoppingCart &#x3D; this.assertShoppingCart(id);
+    const insufficientQuantityProducts &#x3D; [];
+
+    const detailedProductsList &#x3D; await Promise.all(shoppingCart.productsList
+      .map(async (productListItem) &#x3D;&gt; {
+        const product &#x3D; this.assertProduct(productListItem.productId);
+
+        if (product.quantity &lt; productListItem.quantity) {
+          insufficientQuantityProducts.push(product.name);
+        }
+
+        return this.buildDetailedProductItem(product, productListItem.quantity, requestedCurrency);
+      }));
+
+    if (insufficientQuantityProducts.length) {
+      throw new UnprocessableEntityException(&#x60;Insufficient products quantity in warehouse: ${insufficientQuantityProducts.join()}&#x60;);
+    }
+
+    const totalPrice: TotalPrice &#x3D; {
+      value: this.calculateTotalRequestedPrice(detailedProductsList),
+      currency: requestedCurrency,
+    };
+
+    return {
+      shoppingCartId: id,
+      detailedProductsList,
+      totalPrice,
+    };
+  }
+
+  /**
+   * Create detailed product info for order checkout
+   * @param product
+   * @param quantity
+   * @param requestedCurrency
+   * @returns {Promise&lt;{quantity: number; originalPrice: ProductPriceWithTotal; name: string; description: string; requestedCurrencyPrice: ProductPriceWithTotal}&gt;}
+   */
+  private async buildDetailedProductItem(product: ProductDto, quantity: number, requestedCurrency: string): Promise&lt;DetailedProductListItem&gt; {
+    let requestedCurrencyPrice: ProductPriceWithTotal;
+    const originalPrice: ProductPriceWithTotal &#x3D; {
+      ...product.price,
+      total: quantity * product.price.value,
+    };
+
+    if (requestedCurrency !&#x3D;&#x3D; product.price.currency) {
+      const singleItemPrice &#x3D; await this.currenciesService.convert(product.price.currency, requestedCurrency, product.price.value);
+      requestedCurrencyPrice &#x3D; {
+        currency: requestedCurrency,
+        value: singleItemPrice,
+        total: quantity * singleItemPrice,
+      };
+    } else {
+      requestedCurrencyPrice &#x3D; { ...originalPrice };
+    }
+
+    return {
+      name: product.name,
+      quantity,
+      description: product.description,
+      originalPrice,
+      requestedCurrencyPrice,
+    };
+  }
+
+  /**
+   * Update shopping cart products list
+   * @param cart
+   * @param productsList
+   */
+  private updateCartList(cart: ShoppingCartDto, productsList: ShoppingCartProductListItem[]) {
+    this.carts.set(cart.id, {
+      ...cart,
+      productsList,
+    });
+  }
+
+  /**
+   * Assert shopping car
+   * @param id
+   * @returns {ShoppingCartDto}
+   */
+  private assertShoppingCart(id: string): ShoppingCartDto {
+    const shoppingCart &#x3D; this.carts.get(id);
+    if (!shoppingCart) {
+      throw new NotFoundException(&#x27;Shopping cart not found&#x27;);
+    }
+    return shoppingCart;
+  }
+
+  /**
+   * Assert product
+   * @param productId
+   * @returns {ProductDto}
+   */
+  private assertProduct(productId: string): ProductDto {
+    const product &#x3D; this.productsService.findById(productId);
+    if (!product) {
+      throw new UnprocessableEntityException(&#x27;Product not found&#x27;);
+    }
+    return product;
+  }
+
+  /**
+   * Add products to shopping cart list
+   * @param productsList
+   * @param product
+   * @param quantityToAdd
+   * @returns {ShoppingCartProductListItem[]}
+   */
+  private addProductsToList(productsList: ShoppingCartProductListItem[], product: ProductDto, quantityToAdd: number) {
+    const updatedProductsList &#x3D; [...productsList];
+    const productIndex &#x3D; updatedProductsList.findIndex(productListItem &#x3D;&gt; productListItem.productId &#x3D;&#x3D;&#x3D; product.id);
+    let combinedQuantity: number;
+    if (productIndex !&#x3D;&#x3D; -1) {
+      combinedQuantity &#x3D; updatedProductsList[productIndex].quantity + quantityToAdd;
+      updatedProductsList[productIndex].quantity &#x3D; combinedQuantity;
+    } else {
+      combinedQuantity &#x3D; quantityToAdd;
+      updatedProductsList.push({
+        productId: product.id,
+        quantity: combinedQuantity,
+      });
+    }
+
+    if (product.quantity &lt; combinedQuantity) {
+      throw new UnprocessableEntityException(&#x27;Insufficient product quantity in warehouse&#x27;);
+    }
+
+    return updatedProductsList;
+  }
+
+  /**
+   * Remove products from shopping cart list
+   * @param productsList
+   * @param productId
+   * @param quantity
+   * @returns {ShoppingCartProductListItem[]}
+   */
+  private removeProductsFromList(productsList: ShoppingCartProductListItem[], productId: string, quantity: number) {
+    return productsList
+      .reduce((newList: ShoppingCartProductListItem[], productListItem: ShoppingCartProductListItem) &#x3D;&gt; {
+        if (productListItem.productId &#x3D;&#x3D;&#x3D; productId) {
+          productListItem.quantity &#x3D; productListItem.quantity &gt; quantity ? productListItem.quantity - quantity : 0;
+          if (productListItem.quantity &gt; 0) {
+            return newList.concat(productListItem);
+          }
+        }
+        return newList;
+      }, []);
+  }
+
+  /**
+   * Calculate total products price
+   * @param detailedProductsList
+   * @returns {number}
+   */
+  private calculateTotalRequestedPrice(detailedProductsList: DetailedProductListItem[]): number {
+    return detailedProductsList.reduce((sum, item) &#x3D;&gt; {
+      return sum + item.requestedCurrencyPrice.total;
+    }, 0);
+  }
+}
+</code></pre>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+                   
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'injectable';
+            var COMPODOC_CURRENT_PAGE_URL = 'ShoppingCartService.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
+       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+       <script src="../js/menu-wc.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

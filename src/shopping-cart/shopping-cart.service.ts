@@ -13,17 +13,34 @@ import {
 } from './interfaces/order-checkout.dto';
 import { CurrenciesService } from './currencies.service';
 
+/**
+ * Used for manage shopping carts
+ */
 @Injectable()
 export class ShoppingCartService {
 
+  /**
+   * Storage for shopping carts
+   * @type {Map<string, ShoppingCartDto>}
+   */
   private readonly carts = new Map<string, ShoppingCartDto>();
 
+  /**
+   * Constructor
+   * @param productsService
+   * @param currenciesService
+   */
   constructor(
     private readonly productsService: ProductsService,
     private readonly currenciesService: CurrenciesService,
   ) {
   }
 
+
+  /**
+   * Create shopping cart
+   * @returns {string}
+   */
   create(): string {
     const newShoppingCart = new ShoppingCartDto();
     newShoppingCart.id = randomStringGenerator();
@@ -33,6 +50,12 @@ export class ShoppingCartService {
     return newShoppingCart.id;
   }
 
+  /**
+   * Update shopping cart
+   * @param {string} id
+   * @param {ShoppingCartUpdateDto} shoppingCartUpdate
+   * @returns {ShoppingCartDto}
+   */
   update(
     id: string,
     shoppingCartUpdate: ShoppingCartUpdateDto,
@@ -58,6 +81,13 @@ export class ShoppingCartService {
     return this.carts.get(id);
   }
 
+
+  /**
+   * Get summary of shopping cart
+   * @param id
+   * @param requestedCurrency
+   * @returns {Promise<{detailedProductsList: DetailedProductListItem[]; totalPrice: TotalPrice; shoppingCartId: string}>}
+   */
   async checkout(
     id: string,
     requestedCurrency = 'EUR',
@@ -92,6 +122,13 @@ export class ShoppingCartService {
     };
   }
 
+  /**
+   * Create detailed product info for order checkout
+   * @param product
+   * @param quantity
+   * @param requestedCurrency
+   * @returns {Promise<{quantity: number; originalPrice: ProductPriceWithTotal; name: string; description: string; requestedCurrencyPrice: ProductPriceWithTotal}>}
+   */
   private async buildDetailedProductItem(product: ProductDto, quantity: number, requestedCurrency: string): Promise<DetailedProductListItem> {
     let requestedCurrencyPrice: ProductPriceWithTotal;
     const originalPrice: ProductPriceWithTotal = {
@@ -119,6 +156,11 @@ export class ShoppingCartService {
     };
   }
 
+  /**
+   * Update shopping cart products list
+   * @param cart
+   * @param productsList
+   */
   private updateCartList(cart: ShoppingCartDto, productsList: ShoppingCartProductListItem[]) {
     this.carts.set(cart.id, {
       ...cart,
@@ -126,6 +168,11 @@ export class ShoppingCartService {
     });
   }
 
+  /**
+   * Assert shopping car
+   * @param id
+   * @returns {ShoppingCartDto}
+   */
   private assertShoppingCart(id: string): ShoppingCartDto {
     const shoppingCart = this.carts.get(id);
     if (!shoppingCart) {
@@ -134,6 +181,11 @@ export class ShoppingCartService {
     return shoppingCart;
   }
 
+  /**
+   * Assert product
+   * @param productId
+   * @returns {ProductDto}
+   */
   private assertProduct(productId: string): ProductDto {
     const product = this.productsService.findById(productId);
     if (!product) {
@@ -142,6 +194,13 @@ export class ShoppingCartService {
     return product;
   }
 
+  /**
+   * Add products to shopping cart list
+   * @param productsList
+   * @param product
+   * @param quantityToAdd
+   * @returns {ShoppingCartProductListItem[]}
+   */
   private addProductsToList(productsList: ShoppingCartProductListItem[], product: ProductDto, quantityToAdd: number) {
     const updatedProductsList = [...productsList];
     const productIndex = updatedProductsList.findIndex(productListItem => productListItem.productId === product.id);
@@ -164,6 +223,13 @@ export class ShoppingCartService {
     return updatedProductsList;
   }
 
+  /**
+   * Remove products from shopping cart list
+   * @param productsList
+   * @param productId
+   * @param quantity
+   * @returns {ShoppingCartProductListItem[]}
+   */
   private removeProductsFromList(productsList: ShoppingCartProductListItem[], productId: string, quantity: number) {
     return productsList
       .reduce((newList: ShoppingCartProductListItem[], productListItem: ShoppingCartProductListItem) => {
@@ -177,6 +243,11 @@ export class ShoppingCartService {
       }, []);
   }
 
+  /**
+   * Calculate total products price
+   * @param detailedProductsList
+   * @returns {number}
+   */
   private calculateTotalRequestedPrice(detailedProductsList: DetailedProductListItem[]): number {
     return detailedProductsList.reduce((sum, item) => {
       return sum + item.requestedCurrencyPrice.total;
