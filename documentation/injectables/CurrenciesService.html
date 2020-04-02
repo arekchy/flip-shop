@@ -147,7 +147,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="34" class="link-to-prism">src/shopping-cart/currencies.service.ts:34</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="33" class="link-to-prism">src/shopping-cart/currencies.service.ts:33</a></div>
                             </td>
                         </tr>
 
@@ -228,8 +228,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="54"
-                            class="link-to-prism">src/shopping-cart/currencies.service.ts:54</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="53"
+                            class="link-to-prism">src/shopping-cart/currencies.service.ts:53</a></div>
                 </td>
             </tr>
 
@@ -327,8 +327,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="81"
-                            class="link-to-prism">src/shopping-cart/currencies.service.ts:81</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="83"
+                            class="link-to-prism">src/shopping-cart/currencies.service.ts:83</a></div>
                 </td>
             </tr>
 
@@ -376,8 +376,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="70"
-                            class="link-to-prism">src/shopping-cart/currencies.service.ts:70</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="69"
+                            class="link-to-prism">src/shopping-cart/currencies.service.ts:69</a></div>
                 </td>
             </tr>
 
@@ -427,7 +427,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">src/shopping-cart/currencies.service.ts:23</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">src/shopping-cart/currencies.service.ts:22</a></div>
                             </td>
                         </tr>
 
@@ -461,7 +461,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">src/shopping-cart/currencies.service.ts:19</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">src/shopping-cart/currencies.service.ts:18</a></div>
                             </td>
                         </tr>
 
@@ -494,7 +494,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">src/shopping-cart/currencies.service.ts:28</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">src/shopping-cart/currencies.service.ts:27</a></div>
                             </td>
                         </tr>
 
@@ -528,7 +528,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="34" class="link-to-prism">src/shopping-cart/currencies.service.ts:34</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="33" class="link-to-prism">src/shopping-cart/currencies.service.ts:33</a></div>
                             </td>
                         </tr>
 
@@ -561,7 +561,6 @@ import { ExternalExchangeRates } from &#x27;./interfaces/external-exchange-rates
  */
 @Injectable()
 export class CurrenciesService {
-
   /**
    * Date of last exchange rates update
    */
@@ -589,9 +588,9 @@ export class CurrenciesService {
    */
   constructor(
     private readonly httpService: HttpService,
-    @Inject(&#x27;EXCHANGE_RATES_API_URL&#x27;) private readonly exchangeRatesApiUrl: string,
-  ) {
-  }
+    @Inject(&#x27;EXCHANGE_RATES_API_URL&#x27;)
+    private readonly exchangeRatesApiUrl: string,
+  ) {}
 
   /**
    * Converts given value from one currency to another
@@ -617,7 +616,10 @@ export class CurrenciesService {
    * @returns {Promise&lt;Map&lt;string, number&gt;&gt;}
    */
   private async getExchangeRates() {
-    if (!this.exchageRatesLastSync || (Date.now() - this.exchageRatesLastSync.getTime()) &gt; this.ONE_HOUR) {
+    if (
+      !this.exchageRatesLastSync ||
+      Date.now() - this.exchageRatesLastSync.getTime() &gt; this.ONE_HOUR
+    ) {
       return this.getCurrentRates();
     }
     return this.exchangeRatesCache;
@@ -628,7 +630,9 @@ export class CurrenciesService {
    * @returns {Promise&lt;Map&lt;string, number&gt;&gt;}
    */
   private async getCurrentRates() {
-    const externalExchangeRates &#x3D; await this.httpService.get&lt;ExternalExchangeRates&gt;(this.exchangeRatesApiUrl).toPromise();
+    const externalExchangeRates &#x3D; await this.httpService
+      .get&lt;ExternalExchangeRates&gt;(this.exchangeRatesApiUrl)
+      .toPromise();
 
     if (externalExchangeRates.status !&#x3D;&#x3D; 200) {
       throw new ServiceUnavailableException();
@@ -638,14 +642,19 @@ export class CurrenciesService {
     this.exchageRatesLastSync &#x3D; new Date();
 
     const currencyNames &#x3D; Object.keys(externalExchangeRates.data.rates);
-    this.exchangeRatesCache &#x3D; currencyNames.reduce((currenciesMap, currencyName) &#x3D;&gt; {
-      currenciesMap.set(currencyName, externalExchangeRates.data.rates[currencyName]);
-      return currenciesMap;
-    }, new Map&lt;string, number&gt;([[this.baseCurrency, 1]]));
+    this.exchangeRatesCache &#x3D; currencyNames.reduce(
+      (currenciesMap, currencyName) &#x3D;&gt; {
+        currenciesMap.set(
+          currencyName,
+          externalExchangeRates.data.rates[currencyName],
+        );
+        return currenciesMap;
+      },
+      new Map&lt;string, number&gt;([[this.baseCurrency, 1]]),
+    );
 
     return this.exchangeRatesCache;
   }
-
 }
 </code></pre>
     </div>
