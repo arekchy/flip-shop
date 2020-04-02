@@ -60,7 +60,9 @@ describe('Products Controller', () => {
 
   describe('findAll', () => {
     it('When method called without params, should return array of all products', async () => {
-      jest.spyOn(productsService, 'findAll').mockImplementation(() => this.products);
+      jest
+        .spyOn(productsService, 'findAll')
+        .mockImplementation(() => this.products);
 
       expect(await controller.findAll()).toBe(this.products);
       expect(productsService.findAll).toBeCalledTimes(1);

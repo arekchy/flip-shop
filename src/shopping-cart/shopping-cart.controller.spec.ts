@@ -8,13 +8,17 @@ import { OrderCheckoutDto } from './interfaces/order-checkout.dto';
 
 describe('ShoppingCart Controller', () => {
   let controller: ShoppingCartController;
-  const productsService = {
-
-  };
+  const productsService = {};
   const shoppingCartService = {
-    create: (): string => { return; },
-    update: (): ShoppingCartDto => { return; },
-    checkout: (): OrderCheckoutDto => { return; },
+    create: (): string => {
+      return;
+    },
+    update: (): ShoppingCartDto => {
+      return;
+    },
+    checkout: (): OrderCheckoutDto => {
+      return;
+    },
   };
 
   beforeEach(async () => {
@@ -30,7 +34,7 @@ describe('ShoppingCart Controller', () => {
           provide: ProductsService,
           useValue: productsService,
         },
-      ]
+      ],
     }).compile();
 
     controller = module.get<ShoppingCartController>(ShoppingCartController);
@@ -53,13 +57,17 @@ describe('ShoppingCart Controller', () => {
     it('should return shopping cart', () => {
       const cartId = 'cartId';
       const shoppingCart = new ShoppingCartDto();
-      jest.spyOn(shoppingCartService, 'update').mockReturnValueOnce(shoppingCart);
+      jest
+        .spyOn(shoppingCartService, 'update')
+        .mockReturnValueOnce(shoppingCart);
 
-      expect(controller.update(cartId, {
-        action: ShoppingCartAction.REMOVE,
-        productId: 'pid',
-        quantity: 10,
-      })).toBe(shoppingCart);
+      expect(
+        controller.update(cartId, {
+          action: ShoppingCartAction.REMOVE,
+          productId: 'pid',
+          quantity: 10,
+        }),
+      ).toBe(shoppingCart);
     });
   });
 
@@ -67,7 +75,9 @@ describe('ShoppingCart Controller', () => {
     it('should return order checkout', () => {
       const cartId = 'cartId';
       const orderCheckout = {} as OrderCheckoutDto;
-      jest.spyOn(shoppingCartService, 'checkout').mockReturnValueOnce(orderCheckout);
+      jest
+        .spyOn(shoppingCartService, 'checkout')
+        .mockReturnValueOnce(orderCheckout);
 
       expect(controller.checkout(cartId, 'EUR')).toBe(orderCheckout);
     });

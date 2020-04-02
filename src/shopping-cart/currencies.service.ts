@@ -12,7 +12,6 @@ import { ExternalExchangeRates } from './interfaces/external-exchange-rates.inte
  */
 @Injectable()
 export class CurrenciesService {
-
   /**
    * Date of last exchange rates update
    */
@@ -40,9 +39,9 @@ export class CurrenciesService {
    */
   constructor(
     private readonly httpService: HttpService,
-    @Inject('EXCHANGE_RATES_API_URL') private readonly exchangeRatesApiUrl: string,
-  ) {
-  }
+    @Inject('EXCHANGE_RATES_API_URL')
+    private readonly exchangeRatesApiUrl: string,
+  ) {}
 
   /**
    * Converts given value from one currency to another
@@ -68,7 +67,10 @@ export class CurrenciesService {
    * @returns {Promise<Map<string, number>>}
    */
   private async getExchangeRates() {
-    if (!this.exchageRatesLastSync || (Date.now() - this.exchageRatesLastSync.getTime()) > this.ONE_HOUR) {
+    if (
+      !this.exchageRatesLastSync ||
+      Date.now() - this.exchageRatesLastSync.getTime() > this.ONE_HOUR
+    ) {
       return this.getCurrentRates();
     }
     return this.exchangeRatesCache;
@@ -79,7 +81,9 @@ export class CurrenciesService {
    * @returns {Promise<Map<string, number>>}
    */
   private async getCurrentRates() {
-    const externalExchangeRates = await this.httpService.get<ExternalExchangeRates>(this.exchangeRatesApiUrl).toPromise();
+    const externalExchangeRates = await this.httpService
+      .get<ExternalExchangeRates>(this.exchangeRatesApiUrl)
+      .toPromise();
 
     if (externalExchangeRates.status !== 200) {
       throw new ServiceUnavailableException();
@@ -89,12 +93,17 @@ export class CurrenciesService {
     this.exchageRatesLastSync = new Date();
 
     const currencyNames = Object.keys(externalExchangeRates.data.rates);
-    this.exchangeRatesCache = currencyNames.reduce((currenciesMap, currencyName) => {
-      currenciesMap.set(currencyName, externalExchangeRates.data.rates[currencyName]);
-      return currenciesMap;
-    }, new Map<string, number>([[this.baseCurrency, 1]]));
+    this.exchangeRatesCache = currencyNames.reduce(
+      (currenciesMap, currencyName) => {
+        currenciesMap.set(
+          currencyName,
+          externalExchangeRates.data.rates[currencyName],
+        );
+        return currenciesMap;
+      },
+      new Map<string, number>([[this.baseCurrency, 1]]),
+    );
 
     return this.exchangeRatesCache;
   }
-
 }

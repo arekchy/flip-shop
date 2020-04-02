@@ -6,13 +6,11 @@ import { ProductDto } from './interfaces/product.dto';
  */
 @Injectable()
 export class ProductsService {
-
   /**
    * Constructor
    * @param products
    */
-  constructor(@Inject('PRODUCTS') private readonly products: ProductDto[]) {
-  }
+  constructor(@Inject('PRODUCTS') private readonly products: ProductDto[]) {}
 
   /**
    * Resolves all products form database
@@ -28,10 +26,7 @@ export class ProductsService {
    * @returns {ProductDto[]}
    */
   findByIds(ids: string[]) {
-    return this.products
-      .filter(
-        product => ids.includes(product.id),
-      );
+    return this.products.filter(product => ids.includes(product.id));
   }
 
   /**

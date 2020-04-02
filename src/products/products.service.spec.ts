@@ -57,18 +57,19 @@ describe('ProductsService', () => {
 
   describe('findAll', () => {
     it('When method called, should return array of products', async () => {
-
       expect(await service.findAll()).toEqual(products);
     });
   });
 
   describe('findByIds', () => {
     it('When method called with array of ids, should return array of selected products', async () => {
-
       const product1 = products[0];
       const product2 = products[1];
 
-      expect(await service.findByIds([product1.id, product2.id])).toEqual([product1, product2]);
+      expect(await service.findByIds([product1.id, product2.id])).toEqual([
+        product1,
+        product2,
+      ]);
     });
 
     it('When method called with empty array as input, should return empty array', async () => {
@@ -78,16 +79,13 @@ describe('ProductsService', () => {
     it('When method called with not existing id, should return empty array', async () => {
       expect(await service.findByIds(['notExistingProductId'])).toEqual([]);
     });
-
   });
 
   describe('findById', () => {
     it('When method called with id, should return selected product', async () => {
-
       const product = products[1];
 
       expect(await service.findById(product.id)).toEqual(product);
     });
   });
-
 });

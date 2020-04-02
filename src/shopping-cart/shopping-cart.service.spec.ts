@@ -4,17 +4,26 @@ import { ProductsService } from '../products/products.service';
 import { ProductDto } from '../products/interfaces/product.dto';
 import { ShoppingCartAction } from './interfaces/shopping-cart.action';
 import { ShoppingCartDto } from './interfaces/shopping-cart.dto';
-import { NotFoundException, UnprocessableEntityException } from '@nestjs/common';
+import {
+  NotFoundException,
+  UnprocessableEntityException,
+} from '@nestjs/common';
 import { CurrenciesService } from './currencies.service';
 
 describe('ShoppingCartService', () => {
   let service: ShoppingCartService;
   const productsService = {
-    findByIds: (): any[] => { return; },
-    findById: (): any => { return; },
+    findByIds: (): any[] => {
+      return;
+    },
+    findById: (): any => {
+      return;
+    },
   };
   const currenciesService = {
-    convert: (): any => { return; },
+    convert: (): any => {
+      return;
+    },
   };
 
   const products = [
@@ -70,7 +79,6 @@ describe('ShoppingCartService', () => {
   });
 
   describe('update', () => {
-
     it('When try to update not existing cart, should throw NotFoundException', () => {
       const cartId = 'not-existing-cart';
 
@@ -82,8 +90,7 @@ describe('ShoppingCartService', () => {
 
       expect(() => {
         service.update(cartId, update1Input);
-      })
-        .toThrowError(new NotFoundException('Shopping cart not found'));
+      }).toThrowError(new NotFoundException('Shopping cart not found'));
     });
 
     describe('adding products', () => {
@@ -101,10 +108,12 @@ describe('ShoppingCartService', () => {
 
         const expectedResult = new ShoppingCartDto();
         expectedResult.id = cartId;
-        expectedResult.productsList = [{
-          productId: product1.id,
-          quantity: 1,
-        }];
+        expectedResult.productsList = [
+          {
+            productId: product1.id,
+            quantity: 1,
+          },
+        ];
 
         expect(result).toEqual(expectedResult);
       });
@@ -129,10 +138,12 @@ describe('ShoppingCartService', () => {
 
         const expectedResult = new ShoppingCartDto();
         expectedResult.id = cartId;
-        expectedResult.productsList = [{
-          productId: product1.id,
-          quantity: 2,
-        }];
+        expectedResult.productsList = [
+          {
+            productId: product1.id,
+            quantity: 2,
+          },
+        ];
 
         expect(result).toEqual(expectedResult);
       });
@@ -189,15 +200,12 @@ describe('ShoppingCartService', () => {
 
         expect(() => {
           service.update(cartId, update1Input);
-        })
-          .toThrowError(new UnprocessableEntityException('Product not found'));
+        }).toThrowError(new UnprocessableEntityException('Product not found'));
       });
 
       it('When try to add more products than in warehouse, should throw UnprocessableEntityException', () => {
         const product1 = products[0];
-        jest
-          .spyOn(productsService, 'findById')
-          .mockReturnValueOnce(product1);
+        jest.spyOn(productsService, 'findById').mockReturnValueOnce(product1);
 
         const cartId = service.create();
 
@@ -207,14 +215,15 @@ describe('ShoppingCartService', () => {
             productId: product1.id,
             action: ShoppingCartAction.ADD,
           });
-        })
-          .toThrowError(new UnprocessableEntityException('Insufficient product quantity in warehouse'));
+        }).toThrowError(
+          new UnprocessableEntityException(
+            'Insufficient product quantity in warehouse',
+          ),
+        );
       });
-
     });
 
     describe('Removing products', () => {
-
       it('When try to remove not existing product from shopping cart, should throw UnprocessableEntityException', () => {
         const cartId = service.create();
 
@@ -226,15 +235,12 @@ describe('ShoppingCartService', () => {
 
         expect(() => {
           service.update(cartId, update1Input);
-        })
-          .toThrowError(new UnprocessableEntityException('Product not found'));
+        }).toThrowError(new UnprocessableEntityException('Product not found'));
       });
 
       it('When try to decrease amount of products, should return cart with decreased number of selected products', () => {
         const product1 = products[0];
-        jest
-          .spyOn(productsService, 'findById')
-          .mockReturnValue(product1);
+        jest.spyOn(productsService, 'findById').mockReturnValue(product1);
 
         const cartId = service.create();
 
@@ -266,9 +272,7 @@ describe('ShoppingCartService', () => {
 
       it('When try to decrease amount of selected product to 0, should return cart without this product', () => {
         const product1 = products[0];
-        jest
-          .spyOn(productsService, 'findById')
-          .mockReturnValue(product1);
+        jest.spyOn(productsService, 'findById').mockReturnValue(product1);
 
         const cartId = service.create();
 
@@ -295,9 +299,7 @@ describe('ShoppingCartService', () => {
 
       it('When try to decrease amount of selected product below 0, should return cart without this product', () => {
         const product1 = products[0];
-        jest
-          .spyOn(productsService, 'findById')
-          .mockReturnValue(product1);
+        jest.spyOn(productsService, 'findById').mockReturnValue(product1);
 
         const cartId = service.create();
 
@@ -321,15 +323,12 @@ describe('ShoppingCartService', () => {
         expectedResult.productsList = [];
         expect(result).toEqual(expectedResult);
       });
-
     });
 
     describe('checkout', () => {
       it('should return list of products with calculated price in selected currency (basic currency, without exchange)', async () => {
         const product1 = products[0];
-        jest
-          .spyOn(productsService, 'findById')
-          .mockReturnValue(product1);
+        jest.spyOn(productsService, 'findById').mockReturnValue(product1);
 
         const requestedCurrency = 'EUR';
         const conversionValue = 15;
@@ -363,9 +362,12 @@ describe('ShoppingCartService', () => {
                 value: product1.price.value,
                 total: product1.price.value * update1Input.quantity,
               },
-            }
+            },
           ],
-          totalPrice: { value: conversionValue * update1Input.quantity, currency: requestedCurrency }
+          totalPrice: {
+            value: conversionValue * update1Input.quantity,
+            currency: requestedCurrency,
+          },
         });
 
         expect(currenciesService.convert).not.toBeCalled();
@@ -373,9 +375,7 @@ describe('ShoppingCartService', () => {
 
       it('should return list of products with calculated price in selected currency', async () => {
         const product1 = products[0];
-        jest
-          .spyOn(productsService, 'findById')
-          .mockReturnValue(product1);
+        jest.spyOn(productsService, 'findById').mockReturnValue(product1);
 
         const requestedCurrency = 'PLN';
         const conversionValue = 10;
@@ -409,9 +409,12 @@ describe('ShoppingCartService', () => {
                 value: conversionValue,
                 total: conversionValue * update1Input.quantity,
               },
-            }
+            },
           ],
-          totalPrice: { value: conversionValue * update1Input.quantity, currency: requestedCurrency }
+          totalPrice: {
+            value: conversionValue * update1Input.quantity,
+            currency: requestedCurrency,
+          },
         });
 
         expect(currenciesService.convert).toBeCalledTimes(1);
@@ -483,9 +486,13 @@ describe('ShoppingCartService', () => {
                 value: conversionValue,
                 total: conversionValue * update2Input.quantity,
               },
-            }
+            },
           ],
-          totalPrice: { value: conversionValue * (update2Input.quantity + update1Input.quantity), currency: requestedCurrency }
+          totalPrice: {
+            value:
+              conversionValue * (update2Input.quantity + update1Input.quantity),
+            currency: requestedCurrency,
+          },
         });
 
         expect(currenciesService.convert).toBeCalledTimes(2);
@@ -515,13 +522,14 @@ describe('ShoppingCartService', () => {
         };
         service.update(cartId, update1Input);
 
-        expect(service.checkout(cartId, 'PLN'))
-          .rejects.toEqual(new UnprocessableEntityException(`Insufficient products quantity in warehouse: ${product1.name}`));
+        expect(service.checkout(cartId, 'PLN')).rejects.toEqual(
+          new UnprocessableEntityException(
+            `Insufficient products quantity in warehouse: ${product1.name}`,
+          ),
+        );
 
         expect(currenciesService.convert).toBeCalledTimes(1);
       });
-
     });
-
   });
 });

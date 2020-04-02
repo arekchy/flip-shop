@@ -40,9 +40,8 @@ import { ProductDto } from './interfaces/product.dto';
           },
         }),
       ],
-    }
+    },
   ],
   exports: [ProductsService],
 })
-export class ProductsModule {
-}
+export class ProductsModule {}

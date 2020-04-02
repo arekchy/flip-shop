@@ -1,5 +1,12 @@
-import { Injectable, NotFoundException, UnprocessableEntityException } from '@nestjs/common';
-import { ShoppingCartDto, ShoppingCartProductListItem } from './interfaces/shopping-cart.dto';
+import {
+  Injectable,
+  NotFoundException,
+  UnprocessableEntityException,
+} from '@nestjs/common';
+import {
+  ShoppingCartDto,
+  ShoppingCartProductListItem,
+} from './interfaces/shopping-cart.dto';
 import { ShoppingCartAction } from './interfaces/shopping-cart.action';
 import { randomStringGenerator } from '@nestjs/common/utils/random-string-generator.util';
 import { ProductsService } from '../products/products.service';
@@ -18,7 +25,6 @@ import { CurrenciesService } from './currencies.service';
  */
 @Injectable()
 export class ShoppingCartService {
-
   /**
    * Storage for shopping carts
    * @type {Map<string, ShoppingCartDto>}
@@ -33,9 +39,7 @@ export class ShoppingCartService {
   constructor(
     private readonly productsService: ProductsService,
     private readonly currenciesService: CurrenciesService,
-  ) {
-  }
-
+  ) {}
 
   /**
    * Create shopping cart
@@ -56,21 +60,25 @@ export class ShoppingCartService {
    * @param {ShoppingCartUpdateDto} shoppingCartUpdate
    * @returns {ShoppingCartDto}
    */
-  update(
-    id: string,
-    shoppingCartUpdate: ShoppingCartUpdateDto,
-  ) {
-
+  update(id: string, shoppingCartUpdate: ShoppingCartUpdateDto) {
     const shoppingCart = this.assertShoppingCart(id);
     const product = this.assertProduct(shoppingCartUpdate.productId);
     let updatedProductsList: ShoppingCartProductListItem[];
 
     switch (shoppingCartUpdate.action) {
       case ShoppingCartAction.ADD:
-        updatedProductsList = this.addProductsToList(shoppingCart.productsList, product, shoppingCartUpdate.quantity);
+        updatedProductsList = this.addProductsToList(
+          shoppingCart.productsList,
+          product,
+          shoppingCartUpdate.quantity,
+        );
         break;
       case ShoppingCartAction.REMOVE:
-        updatedProductsList = this.removeProductsFromList(shoppingCart.productsList, shoppingCartUpdate.productId, shoppingCartUpdate.quantity);
+        updatedProductsList = this.removeProductsFromList(
+          shoppingCart.productsList,
+          shoppingCartUpdate.productId,
+          shoppingCartUpdate.quantity,
+        );
         break;
     }
 
@@ -80,7 +88,6 @@ export class ShoppingCartService {
 
     return this.carts.get(id);
   }
-
 
   /**
    * Get summary of shopping cart
@@ -95,19 +102,26 @@ export class ShoppingCartService {
     const shoppingCart = this.assertShoppingCart(id);
     const insufficientQuantityProducts = [];
 
-    const detailedProductsList = await Promise.all(shoppingCart.productsList
-      .map(async (productListItem) => {
+    const detailedProductsList = await Promise.all(
+      shoppingCart.productsList.map(async productListItem => {
         const product = this.assertProduct(productListItem.productId);
 
         if (product.quantity < productListItem.quantity) {
           insufficientQuantityProducts.push(product.name);
         }
 
-        return this.buildDetailedProductItem(product, productListItem.quantity, requestedCurrency);
-      }));
+        return this.buildDetailedProductItem(
+          product,
+          productListItem.quantity,
+          requestedCurrency,
+        );
+      }),
+    );
 
     if (insufficientQuantityProducts.length) {
-      throw new UnprocessableEntityException(`Insufficient products quantity in warehouse: ${insufficientQuantityProducts.join()}`);
+      throw new UnprocessableEntityException(
+        `Insufficient products quantity in warehouse: ${insufficientQuantityProducts.join()}`,
+      );
     }
 
     const totalPrice: TotalPrice = {
@@ -129,7 +143,11 @@ export class ShoppingCartService {
    * @param requestedCurrency
    * @returns {Promise<{quantity: number; originalPrice: ProductPriceWithTotal; name: string; description: string; requestedCurrencyPrice: ProductPriceWithTotal}>}
    */
-  private async buildDetailedProductItem(product: ProductDto, quantity: number, requestedCurrency: string): Promise<DetailedProductListItem> {
+  private async buildDetailedProductItem(
+    product: ProductDto,
+    quantity: number,
+    requestedCurrency: string,
+  ): Promise<DetailedProductListItem> {
     let requestedCurrencyPrice: ProductPriceWithTotal;
     const originalPrice: ProductPriceWithTotal = {
       ...product.price,
@@ -137,7 +155,11 @@ export class ShoppingCartService {
     };
 
     if (requestedCurrency !== product.price.currency) {
-      const singleItemPrice = await this.currenciesService.convert(product.price.currency, requestedCurrency, product.price.value);
+      const singleItemPrice = await this.currenciesService.convert(
+        product.price.currency,
+        requestedCurrency,
+        product.price.value,
+      );
       requestedCurrencyPrice = {
         currency: requestedCurrency,
         value: singleItemPrice,
@@ -161,7 +183,10 @@ export class ShoppingCartService {
    * @param cart
    * @param productsList
    */
-  private updateCartList(cart: ShoppingCartDto, productsList: ShoppingCartProductListItem[]) {
+  private updateCartList(
+    cart: ShoppingCartDto,
+    productsList: ShoppingCartProductListItem[],
+  ) {
     this.carts.set(cart.id, {
       ...cart,
       productsList,
@@ -201,12 +226,19 @@ export class ShoppingCartService {
    * @param quantityToAdd
    * @returns {ShoppingCartProductListItem[]}
    */
-  private addProductsToList(productsList: ShoppingCartProductListItem[], product: ProductDto, quantityToAdd: number) {
+  private addProductsToList(
+    productsList: ShoppingCartProductListItem[],
+    product: ProductDto,
+    quantityToAdd: number,
+  ) {
     const updatedProductsList = [...productsList];
-    const productIndex = updatedProductsList.findIndex(productListItem => productListItem.productId === product.id);
+    const productIndex = updatedProductsList.findIndex(
+      productListItem => productListItem.productId === product.id,
+    );
     let combinedQuantity: number;
     if (productIndex !== -1) {
-      combinedQuantity = updatedProductsList[productIndex].quantity + quantityToAdd;
+      combinedQuantity =
+        updatedProductsList[productIndex].quantity + quantityToAdd;
       updatedProductsList[productIndex].quantity = combinedQuantity;
     } else {
       combinedQuantity = quantityToAdd;
@@ -217,7 +249,9 @@ export class ShoppingCartService {
     }
 
     if (product.quantity < combinedQuantity) {
-      throw new UnprocessableEntityException('Insufficient product quantity in warehouse');
+      throw new UnprocessableEntityException(
+        'Insufficient product quantity in warehouse',
+      );
     }
 
     return updatedProductsList;
@@ -230,17 +264,29 @@ export class ShoppingCartService {
    * @param quantity
    * @returns {ShoppingCartProductListItem[]}
    */
-  private removeProductsFromList(productsList: ShoppingCartProductListItem[], productId: string, quantity: number) {
-    return productsList
-      .reduce((newList: ShoppingCartProductListItem[], productListItem: ShoppingCartProductListItem) => {
+  private removeProductsFromList(
+    productsList: ShoppingCartProductListItem[],
+    productId: string,
+    quantity: number,
+  ) {
+    return productsList.reduce(
+      (
+        newList: ShoppingCartProductListItem[],
+        productListItem: ShoppingCartProductListItem,
+      ) => {
         if (productListItem.productId === productId) {
-          productListItem.quantity = productListItem.quantity > quantity ? productListItem.quantity - quantity : 0;
+          productListItem.quantity =
+            productListItem.quantity > quantity
+              ? productListItem.quantity - quantity
+              : 0;
           if (productListItem.quantity > 0) {
             return newList.concat(productListItem);
           }
         }
         return newList;
-      }, []);
+      },
+      [],
+    );
   }
 
   /**
@@ -248,7 +294,9 @@ export class ShoppingCartService {
    * @param detailedProductsList
    * @returns {number}
    */
-  private calculateTotalRequestedPrice(detailedProductsList: DetailedProductListItem[]): number {
+  private calculateTotalRequestedPrice(
+    detailedProductsList: DetailedProductListItem[],
+  ): number {
     return detailedProductsList.reduce((sum, item) => {
       return sum + item.requestedCurrencyPrice.total;
     }, 0);

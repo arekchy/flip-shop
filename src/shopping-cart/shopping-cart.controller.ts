@@ -1,4 +1,14 @@
-import { Body, Controller, Get, Param, ParseIntPipe, Patch, Post, Query, UsePipes } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  ParseIntPipe,
+  Patch,
+  Post,
+  Query,
+  UsePipes,
+} from '@nestjs/common';
 import { ShoppingCartService } from './shopping-cart.service';
 import { ShoppingCartUpdateDto } from './interfaces/shopping-cart-update.dto';
 
@@ -7,13 +17,11 @@ import { ShoppingCartUpdateDto } from './interfaces/shopping-cart-update.dto';
  */
 @Controller('shopping-cart')
 export class ShoppingCartController {
-
   /**
    * Constructor
    * @param shoppingCartService
    */
-  constructor(private readonly shoppingCartService: ShoppingCartService) {
-  }
+  constructor(private readonly shoppingCartService: ShoppingCartService) {}
 
   /**
    * Creates shopping cart
@@ -48,5 +56,4 @@ export class ShoppingCartController {
   checkout(@Param('id') id: string, @Query('currency') currency: string) {
     return this.shoppingCartService.checkout(id, currency);
   }
-
 }

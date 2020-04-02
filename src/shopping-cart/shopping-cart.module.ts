@@ -23,5 +23,4 @@ import axios from 'axios';
     },
   ],
 })
-export class ShoppingCartModule {
-}
+export class ShoppingCartModule {}

@@ -6,7 +6,6 @@ import { Transform } from 'class-transformer';
  * data transfer object for shopping cart update
  */
 export class ShoppingCartUpdateDto {
-
   /**
    * defines if products should be added or removed from cart
    */
@@ -26,5 +25,4 @@ export class ShoppingCartUpdateDto {
   @Transform(quantity => +quantity)
   @IsNumber()
   quantity: number;
-
 }
