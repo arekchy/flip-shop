@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { CurrenciesService } from './currencies.service';
-import { HttpModule, HttpService } from '@nestjs/common';
+import { HttpModule, HttpService, ServiceUnavailableException, UnprocessableEntityException } from '@nestjs/common';
 import { AxiosResponse } from 'axios';
 import { of } from 'rxjs';
 
@@ -13,6 +13,7 @@ describe('CurrenciesService', () => {
   };
 
   beforeEach(async () => {
+    jest.resetAllMocks();
     const module: TestingModule = await Test.createTestingModule({
       imports: [HttpModule],
       providers: [
@@ -82,6 +83,30 @@ describe('CurrenciesService', () => {
       const result = await service.convert('PLN', 'GBP', 15);
 
       expect(result).toBe((exRateGBP / exRatePLN) * 15);
+    });
+
+    it('When try to convert to not supported currency, should throw error UnprocessableEntityException', async () => {
+      jest.spyOn(httpServiceMock, 'get').mockReturnValueOnce(of(axiosResponse));
+
+      expect(service.convert('PLN', 'ZZZ', 15)).rejects.toEqual(new UnprocessableEntityException('Not supported currency'));
+    });
+
+    it('When exchange API responding with no success, should throw error ServiceUnavailableException', async () => {
+      jest.spyOn(httpServiceMock, 'get').mockReturnValueOnce(of({
+        ...axiosResponse,
+        status: 500,
+      }));
+
+      expect(service.convert('PLN', 'ZZZ', 15)).rejects.toEqual(new ServiceUnavailableException());
+    });
+
+    it('should convert from 15 PLN to GBP', async () => {
+      jest.spyOn(httpServiceMock, 'get').mockReturnValueOnce(of(axiosResponse));
+      await service.convert('PLN', 'GBP', 15);
+      const result = await service.convert('PLN', 'GBP', 15);
+
+      expect(result).toBe((exRateGBP / exRatePLN) * 15);
+      expect(httpServiceMock.get).toBeCalledTimes(1);
     });
 
   });
