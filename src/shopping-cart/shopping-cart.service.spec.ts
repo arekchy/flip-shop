@@ -508,7 +508,6 @@ describe('ShoppingCartService', () => {
             quantity: 0,
           });
 
-        const requestedCurrency = 'PLN';
         const conversionValue = 10;
         jest
           .spyOn(currenciesService, 'convert')

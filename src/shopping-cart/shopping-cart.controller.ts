@@ -3,11 +3,9 @@ import {
   Controller,
   Get,
   Param,
-  ParseIntPipe,
   Patch,
   Post,
   Query,
-  UsePipes,
 } from '@nestjs/common';
 import { ShoppingCartService } from './shopping-cart.service';
 import { ShoppingCartUpdateDto } from './interfaces/shopping-cart-update.dto';
