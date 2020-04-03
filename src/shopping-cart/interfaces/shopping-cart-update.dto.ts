@@ -1,5 +1,5 @@
 import { ShoppingCartAction } from './shopping-cart.action';
-import { IsEnum, IsNumber, IsString } from 'class-validator';
+import { IsEnum, IsInt, IsString, Min } from 'class-validator';
 import { Transform } from 'class-transformer';
 
 /**
@@ -23,6 +23,7 @@ export class ShoppingCartUpdateDto {
    * Auto transform to number if possible
    */
   @Transform(quantity => +quantity)
-  @IsNumber()
+  @IsInt()
+  @Min(1)
   quantity: number;
 }
