@@ -1,8 +1,7 @@
+import { IsInt, IsString, Min } from 'class-validator';
 /**
  * Represents product available in shop
  */
-import { IsInt, IsString, Min } from 'class-validator';
-
 export class ProductDto {
   /**
    * product id
