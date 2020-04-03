@@ -1,14 +1,18 @@
 /**
  * Represents product available in shop
  */
+import { IsInt, IsString, Min } from 'class-validator';
+
 export class ProductDto {
   /**
    * product id
    */
+  @IsString()
   id: string;
   /**
    * product name
    */
+  @IsString()
   name: string;
   /**
    * product price - currency and value
@@ -17,21 +21,14 @@ export class ProductDto {
   /**
    * product quantity available in warehouse
    */
+  @IsInt()
+  @Min(0)
   quantity: number;
   /**
    * optional product description
    */
+  @IsString()
   description?: string;
-
-  /**
-   * Takes plain object and converts to ProductDto
-   * @param input
-   */
-  constructor(input: Pick<ProductDto, keyof ProductDto>) {
-    Object.assign(this, input);
-    Object.freeze(this.price);
-    Object.freeze(this);
-  }
 }
 
 /**

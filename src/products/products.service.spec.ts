@@ -1,12 +1,13 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { ProductsService } from './products.service';
 import { ProductDto } from './interfaces/product.dto';
+import { plainToClass } from 'class-transformer';
 
 describe('ProductsService', () => {
   let service: ProductsService;
 
   const products = [
-    new ProductDto({
+    plainToClass(ProductDto, {
       id: 'p1',
       name: 'Item X',
       quantity: 10,
@@ -16,7 +17,7 @@ describe('ProductsService', () => {
         currency: 'EUR',
       },
     }),
-    new ProductDto({
+    plainToClass(ProductDto, {
       id: 'p2',
       name: 'Item Y',
       quantity: 4,
@@ -26,7 +27,7 @@ describe('ProductsService', () => {
         currency: 'PLN',
       },
     }),
-    new ProductDto({
+    plainToClass(ProductDto, {
       id: 'p3',
       name: 'Item Z',
       quantity: 1,

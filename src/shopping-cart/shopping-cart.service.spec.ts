@@ -9,6 +9,7 @@ import {
   UnprocessableEntityException,
 } from '@nestjs/common';
 import { CurrenciesService } from './currencies.service';
+import { plainToClass } from 'class-transformer';
 
 describe('ShoppingCartService', () => {
   let service: ShoppingCartService;
@@ -27,7 +28,7 @@ describe('ShoppingCartService', () => {
   };
 
   const products = [
-    new ProductDto({
+    plainToClass(ProductDto, {
       id: 'p1',
       name: 'Item X',
       quantity: 10,
@@ -37,7 +38,7 @@ describe('ShoppingCartService', () => {
         currency: 'EUR',
       },
     }),
-    new ProductDto({
+    plainToClass(ProductDto, {
       id: 'p2',
       name: 'Item Y',
       quantity: 4,

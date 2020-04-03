@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { ProductsController } from './products.controller';
 import { ProductsService } from './products.service';
 import { ProductDto } from './interfaces/product.dto';
+import { plainToClass } from 'class-transformer';
 
 @Module({
   controllers: [ProductsController],
@@ -10,7 +11,7 @@ import { ProductDto } from './interfaces/product.dto';
     {
       provide: 'PRODUCTS',
       useValue: [
-        new ProductDto({
+        plainToClass(ProductDto, {
           id: 'p1',
           name: 'Item X',
           quantity: 10,
@@ -20,7 +21,7 @@ import { ProductDto } from './interfaces/product.dto';
             currency: 'EUR',
           },
         }),
-        new ProductDto({
+        plainToClass(ProductDto, {
           id: 'p2',
           name: 'Item Y',
           quantity: 4,
@@ -30,7 +31,7 @@ import { ProductDto } from './interfaces/product.dto';
             currency: 'PLN',
           },
         }),
-        new ProductDto({
+        plainToClass(ProductDto, {
           id: 'p3',
           name: 'Item Z',
           quantity: 1,
