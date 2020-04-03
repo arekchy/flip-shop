@@ -63,13 +63,6 @@
             <code>src/products/interfaces/product.dto.ts</code>
         </p>
 
-            <p class="comment">
-                <h3>Description</h3>
-            </p>
-            <p class="comment">
-                <p>Represents product available in shop</p>
-
-            </p>
 
 
 
@@ -115,56 +108,6 @@
     </table>
 </section>
 
-            <section>
-    <h3 id="constructor">Constructor</h3>
-        <table class="table table-sm table-bordered">
-            <tbody>
-                <tr>
-                    <td class="col-md-4">
-<code>constructor(input: <a href="../classes/ProductDto.html">Pick<ProductDto | ProductDto></a>)</code>
-                    </td>
-                </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">src/products/interfaces/product.dto.ts:24</a></div>
-                            </td>
-                        </tr>
-
-                <tr>
-                    <td class="col-md-4">
-                            <div class="io-description"><p>Takes plain object and converts to ProductDto</p>
-</div>
-                            <div>
-                                    <b>Parameters :</b>
-                                    <table class="params">
-                                        <thead>
-                                            <tr>
-                                                <td>Name</td>
-                                                    <td>Type</td>
-                                                <td>Optional</td>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                                <tr>
-                                                        <td>input</td>
-                                                  
-                                                        <td>
-                                                                        <code><a href="../classes/ProductDto.html" target="_self" >Pick&lt;ProductDto | ProductDto&gt;</a></code>
-                                                        </td>
-                                                  
-                                                    <td>
-                                                            No
-                                                    </td>
-                                                    
-                                                </tr>
-                                        </tbody>
-                                    </table>
-                            </div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-</section>
 
             <section>
     
@@ -190,9 +133,18 @@
 
                         </td>
                     </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <b>Decorators : </b>
+                            <br />
+                            <code>
+                                @IsString()<br />
+                            </code>
+                        </td>
+                    </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">src/products/interfaces/product.dto.ts:24</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">src/products/interfaces/product.dto.ts:31</a></div>
                             </td>
                         </tr>
 
@@ -223,9 +175,18 @@
 
                         </td>
                     </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <b>Decorators : </b>
+                            <br />
+                            <code>
+                                @IsString()<br />
+                            </code>
+                        </td>
+                    </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="8" class="link-to-prism">src/products/interfaces/product.dto.ts:8</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">src/products/interfaces/product.dto.ts:11</a></div>
                             </td>
                         </tr>
 
@@ -256,9 +217,18 @@
 
                         </td>
                     </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <b>Decorators : </b>
+                            <br />
+                            <code>
+                                @IsString()<br />
+                            </code>
+                        </td>
+                    </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">src/products/interfaces/product.dto.ts:12</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/products/interfaces/product.dto.ts:16</a></div>
                             </td>
                         </tr>
 
@@ -291,7 +261,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/products/interfaces/product.dto.ts:16</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">src/products/interfaces/product.dto.ts:20</a></div>
                             </td>
                         </tr>
 
@@ -322,9 +292,18 @@
 
                         </td>
                     </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <b>Decorators : </b>
+                            <br />
+                            <code>
+                                @IsInt()<br />@Min(0)<br />
+                            </code>
+                        </td>
+                    </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">src/products/interfaces/product.dto.ts:20</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">src/products/interfaces/product.dto.ts:26</a></div>
                             </td>
                         </tr>
 
@@ -349,14 +328,18 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">export class ProductDto {
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { IsInt, IsString, Min } from &#x27;class-validator&#x27;;
+
+export class ProductDto {
   /**
    * product id
    */
+  @IsString()
   id: string;
   /**
    * product name
    */
+  @IsString()
   name: string;
   /**
    * product price - currency and value
@@ -365,21 +348,14 @@
   /**
    * product quantity available in warehouse
    */
+  @IsInt()
+  @Min(0)
   quantity: number;
   /**
    * optional product description
    */
+  @IsString()
   description?: string;
-
-  /**
-   * Takes plain object and converts to ProductDto
-   * @param input
-   */
-  constructor(input: Pick&lt;ProductDto, keyof ProductDto&gt;) {
-    Object.assign(this, input);
-    Object.freeze(this.price);
-    Object.freeze(this);
-  }
 }
 
 /**

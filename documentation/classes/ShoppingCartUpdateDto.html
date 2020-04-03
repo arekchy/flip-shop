@@ -221,13 +221,13 @@
                             <b>Decorators : </b>
                             <br />
                             <code>
-                                @Transform(undefined)<br />@IsNumber()<br />
+                                @Transform(undefined)<br />@IsInt()<br />@Min(1)<br />
                             </code>
                         </td>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">src/shopping-cart/interfaces/shopping-cart-update.dto.ts:27</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">src/shopping-cart/interfaces/shopping-cart-update.dto.ts:28</a></div>
                             </td>
                         </tr>
 
@@ -254,7 +254,7 @@ Auto transform to number if possible</p>
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ShoppingCartAction } from &#x27;./shopping-cart.action&#x27;;
-import { IsEnum, IsNumber, IsString } from &#x27;class-validator&#x27;;
+import { IsEnum, IsInt, IsString, Min } from &#x27;class-validator&#x27;;
 import { Transform } from &#x27;class-transformer&#x27;;
 
 /**
@@ -278,7 +278,8 @@ export class ShoppingCartUpdateDto {
    * Auto transform to number if possible
    */
   @Transform(quantity &#x3D;&gt; +quantity)
-  @IsNumber()
+  @IsInt()
+  @Min(1)
   quantity: number;
 }
 </code></pre>

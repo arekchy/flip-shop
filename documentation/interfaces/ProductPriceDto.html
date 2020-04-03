@@ -177,14 +177,18 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">export class ProductDto {
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { IsInt, IsString, Min } from &#x27;class-validator&#x27;;
+
+export class ProductDto {
   /**
    * product id
    */
+  @IsString()
   id: string;
   /**
    * product name
    */
+  @IsString()
   name: string;
   /**
    * product price - currency and value
@@ -193,21 +197,14 @@
   /**
    * product quantity available in warehouse
    */
+  @IsInt()
+  @Min(0)
   quantity: number;
   /**
    * optional product description
    */
+  @IsString()
   description?: string;
-
-  /**
-   * Takes plain object and converts to ProductDto
-   * @param input
-   */
-  constructor(input: Pick&lt;ProductDto, keyof ProductDto&gt;) {
-    Object.assign(this, input);
-    Object.freeze(this.price);
-    Object.freeze(this);
-  }
 }
 
 /**

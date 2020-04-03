@@ -180,6 +180,7 @@
 import { ProductsController } from &#x27;./products.controller&#x27;;
 import { ProductsService } from &#x27;./products.service&#x27;;
 import { ProductDto } from &#x27;./interfaces/product.dto&#x27;;
+import { plainToClass } from &#x27;class-transformer&#x27;;
 
 @Module({
   controllers: [ProductsController],
@@ -188,7 +189,7 @@ import { ProductDto } from &#x27;./interfaces/product.dto&#x27;;
     {
       provide: &#x27;PRODUCTS&#x27;,
       useValue: [
-        new ProductDto({
+        plainToClass(ProductDto, {
           id: &#x27;p1&#x27;,
           name: &#x27;Item X&#x27;,
           quantity: 10,
@@ -198,7 +199,7 @@ import { ProductDto } from &#x27;./interfaces/product.dto&#x27;;
             currency: &#x27;EUR&#x27;,
           },
         }),
-        new ProductDto({
+        plainToClass(ProductDto, {
           id: &#x27;p2&#x27;,
           name: &#x27;Item Y&#x27;,
           quantity: 4,
@@ -208,7 +209,7 @@ import { ProductDto } from &#x27;./interfaces/product.dto&#x27;;
             currency: &#x27;PLN&#x27;,
           },
         }),
-        new ProductDto({
+        plainToClass(ProductDto, {
           id: &#x27;p3&#x27;,
           name: &#x27;Item Z&#x27;,
           quantity: 1,
